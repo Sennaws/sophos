@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Sophos Connect</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/sc.css">
+
+	<script src="js/jquery.js"></script>
+	<script src="js/scUtil.js"></script>
+	<script src="js/scEventHandlers.js"></script>
+	<script src="js/label_defs.js"></script>
+	<script src="js/labels_en_us.js"></script>
+	<script src="js/labels_fr_fr.js"></script>
+	<script src="js/labels_ja_jp.js"></script>
+	<script src="js/labels_de_de.js"></script>
+	<script src="js/labels_es_es.js"></script>
+	<script src="js/labels_it_it.js"></script>
+	<script src="js/labels_ko_kr.js"></script>
+	<script src="js/labels_pt_br.js"></script>
+	<script src="js/labels_zh_cn.js"></script>
+	<script src="js/labels_zh_tw.js"></script>
+
+	<script src="js/label.js"></script>
+	<script src="js/status_defs.js"></script>
+	<script src="js/status_en_us.js"></script>
+	<script src="js/status_fr_fr.js"></script>
+	<script src="js/status_ja_jp.js"></script>
+	<script src="js/status_de_de.js"></script>
+	<script src="js/status_es_es.js"></script>
+	<script src="js/status_it_it.js"></script>
+	<script src="js/status_ko_kr.js"></script>
+	<script src="js/status_pt_br.js"></script>
+	<script src="js/status_zh_cn.js"></script>
+	<script src="js/status_zh_tw.js"></script>
+	<script src="js/statusMsg.js"></script>
+	<script src="js/sc.js"></script>
+	<script src="js/connections.js"></script>
+	<script>
+		$(document).ready(function () {
+			init_page();
+		});
+	</script>
+</head>
+
+<body class="unselectable" oncontextmenu="return false;">
+    <div class="header">
+        <ul class="tabs">
+            <li id="title"><img id="sophosLogo" src="css/images/sophos-logo-white.png" /></li>
+            <li class="tab active"><a id="connectionsTab" tabindex="1">Connections</a><div id="connectionsTriangle" class="triangle"></div></li>
+            <li class="tab"><a id="eventsTab" tabindex="2">Events</a><div id="eventsTriangle"></div></li>
+            <li class="tab">
+                <div id="divMenu" tabindex="3"><img id="ellipsisIcon" src="css/images/vellipsis.png" title="Menu" /></div>
+            </li>
+        </ul>
+		<ul class="dropMenu appMenu" id="appMenu">
+			<li class="appMenuItem" id="importMenuItem">
+				<div class="appMenuText nopad">
+					<input class="inputFile" id="importMenuItemLink" type="file" accept=".scx,.tgb,.ini,.ovpn,.pro">
+					<label for="importMenuItemLink" class="importConnection" id="importMenuLink">
+						<span id="importFileLinkText" class="importConnection">Import connection</span>
+					</label>
+				</div>
+			</li>
+			<li class="appMenuItem" id="logMenuItem">
+				<div class="appMenuText nopad">
+					<a href="http://127.0.0.1:60110/request?log=charon" id="logMenuItemLInk" target="iframe_embeded" class="listData">View VPN log</a>
+				</div>
+			</li>
+			<li class="appMenuItem" id="forceSSORelogonItem"><div class="appMenuText" id="forceSSORelogonMIText">Force SSO Re-logon</div></li>
+			<li class="appMenuItem" id="helpMenuItem">
+				<div class="appMenuText nopad">
+					<a href="#" id="helpMILink" class="listData">Help</a>
+				</div>
+			</li>
+			<li class="appMenuItem" id="aboutMenuItem"><div class="appMenuText" id="aboutMIText">About</div></li>
+			<li class="appMenuItem" id="quitMenuItem"><div class="appMenuText" id="quitMIText">Quit</div></li>
+		</ul>
+    </div>
+    <div id="pageContent">
+		<div id="StatusAlert">
+			<div id="statusAlertTriangle"></div>
+			<div id="statusAlertIcon"></div>
+			<div id="statusAlertText">
+				<div id="statusAlertTitle"></div>
+				<div id="statusAlertMsg"></div>
+			</div>
+			<div id="statusAlertClose" onclick="Notify.hide();">&nbsp;x</div>
+		</div>
+		<div id="ConnectionsPage">
+			<div class="statusArea" id="statusArea">
+				<div class="statusContent" id="statusContent">
+					<div id="statusImg" class="normal"></div>
+					<div id="statusContentList" class="selectable"><ul id="statusList"><li id="statusName"></li><li id="statusDetails"></li></ul></div>
+					<div id="statusContentBtn">
+						<button class="sophosRoundedCorner" id="connectBtn" title="Enable Connection"
+								tabindex="3" onclick="onClickConnect(event);">
+							Connect
+						</button>
+					</div>
+					<div id="statusContentImportBtn">
+						<input class="inputFile" id="importFile" type="file" accept=".scx,.tgb,.ini,.ovpn,.pro">
+						<label for="importFile" class="importConnection" id="importBtn" title="Import a connection file" tabindex="4">
+							<img id="importFileIcon" class="importIcon" src="css/images/importWhite.svg" />
+							<span id="importBtnText">Import connection</span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<!-- Connections List -->
+			<div class="detailsArea" id="connectionDetails">
+				<div class="subTitle">
+					<div class="subTitleContent" id="connectionsPageTitle">
+						<div id="editDiv">
+							<ul class="dropMenu" id="editMenu">
+								<li class="editMenuItem" id="autoConnect">
+									<div class="editMenuImg"></div>
+									<div class="editMenuText" id="autoConnectMIT">Auto-Connect</div>
+								</li>
+								<li class="editMenuItem" id="delete">
+									<div class="editMenuImg"></div>
+									<div class="editMenuText" id="deleteMIT">Delete</div>
+								</li>
+								<li class="editMenuItem" id="rename">
+									<div class="editMenuImg"></div>
+									<div class="editMenuText" id="renameMIT">Rename</div>
+								</li>
+								<li class="editMenuItem" id="clearCredentials">
+									<div class="editMenuImg"></div>
+									<div class="editMenuText" id="clearCredentialsMIT">Clear credentials</div>
+								</li>
+								<li class="editMenuItem" id="updateConnection">
+									<div class="editMenuImg"></div>
+									<div class="editMenuText" id="updateConnectionMIT">Update policy</div>
+								</li>
+							</ul>
+						</div>
+						<span id="connectionsPageTitleText">Connections</span>
+					</div>
+					<div class="line"></div>
+				</div>
+				<div class="fieldset">
+					<ul class="connList transient" id="connectionsList" onchange="onChangeConnectionsList(event);" tabindex="5"></ul>
+					<div class="transient" id="updating">
+						<section class="transient" id="updatingContent">
+							<p id="updatingMsg">Updating policy...</p>
+						</section>
+					</div>
+				</div>
+			</div>
+			<!-- Authenticaton -->
+            <div class="detailsArea" id="authDetails">
+                <div class="subTitle">
+                    <div class="subTitleContent" id="authPageTitle">Authenticate user</div>
+                    <div class="line"></div>
+                </div>
+                <div class="introSection" id="authPageIntro">
+                    <p id="authPageIntroText">
+                        Your username, password and captcha are required for this connection to succeed. Enter your username and password and click Login.
+                    </p>
+                </div>
+
+                <div class="sign-in-options-container" id="sign-in-options">
+
+                    <!--This is div for user and pass sign in option-->
+                    <div class="sign-in-via-user-and-pass-container" id="sign-in-via-user-and-pass">
+
+                        <div class="user-name-and-pass-title-label-container">
+                            <label class="user-name-and-pass-sign-in-title-label" id="user-and-pass-sign-in-title">User Name and Password </label>
+                            <br>
+                        </div>
+
+                        <div class="fieldset credential">
+                            <div class="user-name-title-lable-and-input-container">
+                                <label class="title-label user-name-label" id="user-name-title">User name</label>
+                                <br>
+                                <input id="user" type="text" name="user" onkeyup="onKeyupCheckSend(event);"
+                                       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="fieldset credential">
+                            <div class="password-title-lable-and-input-container">
+                                <label class="title-label password-label" id="password-title">Password</label>
+                                <br>
+                                <input id="pass" type="password" name="pass" onkeyup="onKeyupCheckSend(event);" tabindex="0"><br>
+                            </div>
+                        </div>
+                            <div class="fieldset otp" id="otpFieldset">
+                                <div class="otp-title-lable-and-input-container">
+                                    <label class="title-label otp-label" id="otp-title">Token / One Time Password (OTP) </label>
+                                    <br>
+                                    <input id="otp" type="text" name="otp" onkeyup="onKeyupCheckSend(event);" tabindex="0"><br>
+                                </div>
+                            </div>
+                            <div class="fieldset credential" id="captchaFieldset">
+                                <div class="captcha-container">
+                                    <img class="captcha-img" id="imgCaptcha" title="Enter characters shown in the image" />
+                                    <button class="scc-button refresh-captcha-button" id="refreshCaptcha" onclick="onRefreshCaptcha()" title="Refresh captcha image">
+                                        Refresh
+                                    </button>
+                                    <input id="captcha" type="text" onkeyup="onKeyupCheckSend(event);" maxlength="6" tabindex="0" />
+                                </div>
+                            </div>
+                            <div class="sign-in-via-user-name-and-pass-button-container" id="buttonRow">
+                                <br>
+                                <button class="scc-button sign-in-via-user-name-and-pass-button" id="send" onclick="onClickSend();" disabled="disabled" tabindex="0">Login</button>
+                            </div>
+                            <div class="fieldset checkbox">
+                                <br>
+                                <input id="saveCredentials" type="checkbox" name="saveCredentials" disabled="disabled" tabindex="0" />
+                                <label for="saveCredentials" id="saveCredentialsLabel">Remember user name and password</label>
+                            </div>
+                        </div> <!-- sign-in-via-user-and-pass-container End -->
+                    <!--This is div for separators for sign in options-->
+                    <div class="sign-in-options-separator-container" id="sign-in-options-separators">
+                        <div class="sign-in-options-separator-line"></div>
+                        <label class="sign-in-options-separator-OR-title-lable" id="sign-in-options-separator-OR-title">OR</label>
+                    </div><!-- sign-in-options-separators-container End -->
+                    <!--This is div for sso sign in option-->
+                    <div class="sign-in-via-sso-container" id="sign-in-via-sso">
+                        <div class="sign-in-via-sso-title-container">
+                            <label class="sign-in-via-sso-title-lable" id="sign-in-via-sso-title">Single Sign On (SSO)</label>
+                        </div>
+                        <div class="sign-in-via-sso-empty-space"></div>
+						<div class="sso-button-and-tooltip-container">
+							<button class="scc-button sso-button" id="sso-button" onclick="onClickSSOLogin();" tabindex="0">Single Sign On (SSO) </button>
+							<span class="sso-button-tooltip-text" id="sso-button-tooltip"></span>
+						</div>
+                        
+                        <div class="vpn-portal-port-container" id="vpn-portal-port-details">
+                            <button class="vpn-portal-port-button" id="vpn-portal-port-button" onclick="onClickChangeVPNPortalPort();">
+                                <img class="vpn-portal-port-img" id="vpn-portal-port-icon" src="css/images/right-arrow.png" alt="icon">
+                                <span class="vpn-portal-port-button-label"  id="vpn-portal-port-button-label-title">VPN portal port</span>
+                            </button>
+                            <div class="vpn-portal-port-input-container" id="vpn-portal-port-input-area" style="display: none;">
+                                <input class="scc-input vpn-portal-port-input" id="vpn-portal-port-input-field" type="number" value="443" />
+                                <div class="vpn-portal-port-change-warning-container">
+                                    <img class="vpn-portal-port-warning-icon" id="vpn-portal-port-change-warning-icon" src="css/images/orange-warning.png" alt="icon">
+									<label class="vpn-portal-port-warning-label" id="vpn-portal-port-warning">Edit port when admin requests only</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- sign-in-options-separators-container End -->
+                </div><!-- sign-in-options-container End -->
+            </div><!-- Authenticaton End -->
+
+			<!-- Monitor Connections -->
+			<div class="detailsArea" id="monitorDetails">
+				<div class="subTitle">
+					<div class="subTitleContent" id="monitorPageTitle">
+						<img id="connectionIcon" src="css/images/monitor-connection.png" title="Connection" tabindex="4" />
+						<img id="networksIcon" src="css/images/monitor-network.png" title="Networks" tabindex="5" />
+						<img id="securityIcon" src="css/images/monitor-security.png" title="Security" tabindex="6">
+						<span id="monitorPageTitleText">Monitor connection</span>
+					</div>
+					<div class="line"></div>
+				</div>
+				<div class="transient" id="connecting">
+					<section class="transient" id="connectingContent">
+						<p id="connectingMsg">Please wait - establishing connection...</p>
+					</section>
+				</div>
+				<div class="transient" id="polling">
+					<section class="transient" id="pollingContent">
+						<p id="pollingMsg">Please wait - gathering connection details...</p>
+					</section>
+				</div>
+				<div class="transient" id="disabling">
+					<section class="transient" id="disablingContent">
+						<p id="disablingMsg">Disabling connection...</p>
+					</section>
+				</div>
+				<div class="monitors" id="monitorViews">
+				</div>
+			</div>
+
+			<!-- ByPass server Ssl -->
+			<div class="detailsArea" id="byPassSslDetails">
+				<div class="subTitle">
+					<div class="subTitleContent" id="byPassSslPageTitle">
+						<span id="byPassSslPageTitleText">By Pass SSL</span>
+					</div>
+					<div class="line"></div>
+				</div>
+                <div class="transient" id="bySslMsg">
+                    <section class="transient">
+                        <p id="sslErrText">Attackers text</p>
+                    </section>
+                    <br>
+                    <section class="transient" >
+                        <p id="connectingToServer">Trying to connect to server ...</p>
+                    </section>
+                    <br>
+                    <section class="transient">
+                        <p id="sslErrAdvText">Advance text</p>
+                    </section>
+                </div>
+				<div id="byPassSslLink">
+					<section class="transient">
+                        <button  id="proceed" onclick="byPassSsl()" tabindex="0"/>
+					</section>
+				</div>
+				</div>
+			
+			
+			<!-- Import Connections -->
+			<div class="detailsArea" id="importDetails">
+				<section class="importDetailsContent" id="importDetailsContent">
+					<p id="importDetailsText">
+						<span id="importDetailsParaText">
+							For instructions on how to create a remote access profile for Sophos Connect on XG Firewall, see the following article:
+						</span>
+						<br />
+						<a id="importDetailsLink" href="#" title="Create Sophos Connect profile" tabindex="0">Create Sophos Connect profile</a>
+					</p>
+				</section>
+			</div>
+
+			<!-- Import Certificate -->
+			<div class="detailsArea" id="certDetails">
+				<section class="certDetailsContent" id="certDetailsContent">
+					<div class="subTitle">
+						<div class="subTitleContent" id="certPageTitle">Import certificate credentials</div>
+						<div class="line"></div>
+					</div>
+					<div class="introSection" id="certPageIntro">
+						<p id="certPageIntroText">
+							IKE authentication of this connection requires a certificate and private key.  Please select a PKCS#12 file for import and enter the password which was used to encrypt the file.
+						</p>
+					</div>
+					<div class="fieldset credential">
+						<input id="pk12Password" type="password" name="pk12Password" placeholder="Enter password" onkeyup="checkImportCertBtn(event);" tabindex="0"><br>
+					</div>
+					<div id="divCertImport">
+						<input class="inputPKCSFile" id="importCertFile" type="file" tabindex="0">
+						<label for="importCertFile" class="importCertFile" id="importCertBtn" title="Import a PKCS#12 file">
+							<img id="importFileIcon" class="importIcon" src="css/images/importWhite.svg" />
+							<span id="importCertBtnText">Import PKCS#12 file</span>
+						</label>
+					</div>
+				</section>
+			</div>
+
+			<!-- Outage -->
+			<div class="detailsArea" id="outageDetails">
+				<section class="transient" id="outageDetailsContent">
+					<p id="outageDetailsText">
+						No Internet access.<br />
+						Please wait...the connection will be<br />
+						restarted once Internet access is restored.
+					</p>
+				</section>
+			</div>
+
+			<!-- Retry -->
+			<div class="detailsArea" id="retryDetails">
+				<section class="transient" id="retryDetailsContent">
+					<p id="retryText">
+						Please wait...will retry connection.
+					</p>
+				</section>
+			</div>
+
+		</div>
+
+        <!-- Events -->
+        <div id="EventsPage">
+            <div class="eventsHdr" id="eventsHdr">
+                <div class="listIcons"></div>
+                <div class="ts" id="eventsHdrTS">Occurred</div>
+                <div class="logMsg" id="eventsHdrMsg">Description</div>
+                <div id="eventsHdrButtonDiv">
+                    <button class="button" id="clearEventsBtn" title="Clear Events page" tabindex="3">
+                        Clear events
+                    </button>
+                </div>
+            </div>
+            <ul id="logarea" maxlength="4096" readonly="readonly" tabindex="-1"></ul>
+        </div>
+	    <!-- Iframeto show log and credits -->
+        <div id="IframePage">
+            <iframe height="100%" width="100%" name="iframe_embeded"></iframe>
+        </div>
+        <!-- About -->
+		<div id="AboutPage">
+			<ul class="legal">
+				<li id="copyright" class="aboutLabel">
+					<div class="listData" id="copyrightText">
+						Copyright 2018 Sophos Ltd.
+					</div>
+				</li>
+				<li id="legal" title="See Legal Company Details">
+					<a href="#" id="legalLink" class="listData" tabindex="0">Legal Company Details</a>
+				</li>
+			</ul>
+			<h2 id="versionsHdr">Versions</h2>
+			<ul id="versions">
+				<li id="sophosConnect">
+					<div class="listData" id="sophosConnectText">
+						Sophos Connect service
+					</div>
+					<div class="listText"></div>
+				</li>
+				<li id="strongSwan">
+					<div class="listData" id="strongSwanText">
+						strongSwan service
+					</div>
+					<div class="listText"></div>
+				</li>
+				<li id="openVpn">
+					<div class="listData" id="openVpnText">
+						OpenVPN service
+					</div>
+					<div class="listText"></div>
+				</li>
+			</ul>
+
+			<!-- Hide until implemented
+	<h2 id="troubleshootingHdr">Troubleshooting</h2>
+	<button class="button" id="diagnosticBtn" title="Run diagnostic tool" tabindex="6">Run diagnostic tool</button>
+	-->
+
+			<h2 id="troubleshootingHdr">Troubleshooting</h2>
+			<div id="troubleshooting" class="button">
+				<a href="http://127.0.0.1:60110/request?log=tsr" id="generateTSR" target="iframe_embeded" download="scvpntsr.zip" class="button listData" title="Generate technical support report">Generate TSR</a>
+			</div>
+
+			<div id="community" title="Open Sophos Community website">
+				<a href="#" id="communityLink" class="listData" tabindex="0">Community forum</a>
+			</div>
+
+			<div id="credits" title="Credits">
+				<a href="http://127.0.0.1:60110/request?page=credits" id="attributionLink" target="iframe_embeded" onclick="onShowCredit()" class="listData" tabindex="0">Credits</a>
+			</div>
+		</div>
+    </div>
+
+</body>
+</html>

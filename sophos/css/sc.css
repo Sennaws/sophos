@@ -1,0 +1,1906 @@
+@font-face {
+    font-family: SophosSans;
+    src: url(fonts/SophosSans-Light.woff);
+}
+
+@font-face {
+    font-family: SophosSansMedium;
+    src: url(fonts/SophosSans-Medium.woff);
+}
+
+@font-face {
+    font-family: SophosSansBold;
+    src: url(fonts/SophosSans-Bold.woff);
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    color: #000000;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "SophosSans", Arial;
+    border: none;
+    display:block;
+}
+
+.triangle {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -10px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent white transparent;
+}.gray {
+    border-color: transparent transparent #ECECEC transparent;
+}
+
+.header {
+    position: relative;
+    display: inline-flex;
+    background-color: #1C2F3C;
+    color: white;
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    vertical-align: top;
+}
+
+.header #title {
+    width: 102px;
+    margin-left: 12px;
+    line-height:43px;
+}
+
+.header #title #sophosLogo {
+    height: 11px;
+}
+
+.header .content {
+    clear: both;
+}
+
+.tab {
+    display: block;
+    position: relative;
+}
+
+.header ul.tabs {
+    display: inline-block;
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.header ul.tabs > li {
+    float: left;
+    margin-right: 22px;
+    text-decoration: none;
+}
+
+.header ul.tabs > li:focus {
+    color: white;
+}
+
+.header ul.tabs > li a {
+    display: inline-block;
+    color: #99a2b0;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 4px;
+    text-decoration: none;
+    position: relative;
+}
+
+.header ul.tabs > li.active a {
+    color: white;
+}
+
+.header ul.tabs > li.active a:focus {
+    color: lightcyan;
+}
+
+.header ul.tabs > li.tab:hover a {
+    color: white;
+    cursor: pointer;
+}
+
+.header ul.tabs > li.tab:last-of-type {
+    float: right;
+    margin-right: 0;
+    width: 40px;
+}
+
+.header ul.tabs > li a:focus {
+    outline: none;
+    color: white;
+}
+
+.header ul.tabs > li div#divMenu {
+    display: inline-block;
+    position: relative;
+    height: 28px;
+    width: 28px;
+    min-width: 28px;
+    top: 12px;
+}
+
+.header ul.tabs > li div#divMenu:hover,
+.header ul.tabs > li div#divMenu:focus {
+    background-color: #6c6c6c;
+    cursor: pointer;
+    outline: none;
+}
+
+.header ul.tabs > li div#divMenu[disabled]:focus {
+    background-color: #4c4c4c;
+}
+
+.header ul.tabs > li div#divMenu[disabled]:hover {
+    cursor: not-allowed;
+}
+
+.header ul.tabs > li img {
+    vertical-align: middle;
+}
+
+.header ul.tabs > li img:focus {
+    outline: none;
+}
+
+.header ul.tabs > li:last-of-type img {
+    vertical-align: top;
+    margin: 2px 0 0 6px;
+}
+
+.statusArea {
+    display: block;
+    background-color: white;
+    height: 104px; /* 110px; */
+    position: relative;
+    width: 100%;
+}
+
+div.statusContent {
+    display: inline-flex;
+    position: relative;
+    top: 20px;
+    height: 70px;
+    min-height: 70px;
+    width: 100%;
+}
+
+div.statusContent div:first-of-type {
+    line-height: 60px;
+}
+
+div.statusContent div {
+    margin: 4px 0 0 32px;
+    height: 48px;
+    width: 48px;
+}
+
+div.statusContent div.normal {
+	background: url("images/connection.png") no-repeat;
+	background-size: contain;
+    min-width: 48px;
+}
+
+div.statusContent div.error {
+	background: url("images/status-error.png") no-repeat;
+	background-size: contain;
+}
+
+div.statusContent div.loading {
+	background-color: #FFFFFF;
+	background: url("images/Sophos_Loading_Indicator_White_48x48.gif") no-repeat;
+}
+
+div.statusContent div.connected {
+	background: url("images/status-success.png") no-repeat;
+	background-size: contain;
+}
+
+div.statusContent div.warning {
+	background: url("images/status-warning.png") no-repeat;
+	background-size: contain;
+}
+
+div.statusContent #statusContentList {
+    width: calc(100% - 286px);
+}
+
+div.statusContent #statusContentList ul {
+    list-style-type: none;
+    margin: 0 0;
+    padding: 0 0;
+    height: 58px;
+}
+
+div.statusContent #statusName {
+    color: black;
+    margin-top: 12px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 24px;
+    font-family: SophosSans, Arial;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.statusContent #statusDetails {
+    color: #99A3B1;
+    height: 20px;
+    line-height: 20px;
+    font-size: 11px;
+    font-family: SophosSans, Arial;
+    font-weight: normal;
+	overflow-x: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+div.statusContent div:last-of-type {
+    position: absolute;
+    right: 38px;
+    height: 70px;
+    width: 100px;
+}
+
+div.statusContent div button {
+    background-color: #1987CB;
+    color: white;
+    width: 120px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: "SophosSans", Arial;
+    outline: none;
+    border: 1px solid transparent;
+    margin-top: 16px;
+}
+
+div.statusContent div#statusContentBtn button[disabled] {
+    background-color: #6EB4E7;
+    border-color: #6EB4E7;
+    color: #B3C4D7;
+    cursor: not-allowed;
+}
+
+div.statusContent div#statusContentImportBtn {
+    width: 160px;
+    display: none;
+}
+
+div.statusContent div#statusContentImportBtn.active {
+    display: block;
+}
+
+div.statusContent div#statusContentImportBtn label {
+    display: inline-block;
+    background-color: #1987CB;
+    border: 1px solid #1987CB;
+    color: white;
+    margin-top: 14px;
+    padding-left: 12px;
+    height: 28px;
+    width: 150px;
+    line-height: 28px;
+    font-family: SophosSans;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+div#statusContentImportBtn label img.importIcon {
+    width: 16px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+div.statusContent div button#connectBtn:focus {
+    outline: 1px solid #4E85C4;
+}
+
+div.statusContent div button#connectBtn:hover {
+    background-color: #0090dd;
+}
+
+div.statusContent div button#connectBtn[disabled]:hover {
+    background-color: #0090dd;
+	cursor: not-allowed;
+}
+
+#contentArea {
+    background-color: #E5EBF1;
+    width: 474px;
+    height: 397px;
+    margin: 0;
+}
+
+#pageContent {
+    position: relative;
+    background-color: #ECECEC;
+    width: 100%;
+    height: calc(100% - 50px);
+    margin: 0;
+    display: inline-flex;
+}
+
+#StatusAlert {
+	position: fixed;
+	background-color: #1C2F3C;
+	min-height: 90px;
+	width: 400px;
+	margin-top: 10px;
+	margin-left: calc((100% - 400px)/2);
+	z-index: 1;
+	display: none;
+	border: 1px solid #1C2F3C;
+	-moz-border-radius: 10px 10px;
+	-webkit-border-radius: 10px 10px;
+	border-radius: 10px 10px;
+}
+
+#statusAlertTriangle {
+	content: "";
+	display: block;
+	position: relative;
+	width: 0;
+	height: 0;
+	bottom: 0;
+	left: calc((100% - 210px));
+	margin-top: -11px;
+	border-style: solid;
+	border-width: 0 10px 10px 10px;
+	border-color: transparent transparent #1C2F3C transparent;
+}
+
+#statusAlertClose {
+	display: block;
+	position: relative;
+	float: right;
+	color: #efefef;
+	border: 2px solid #efefef;
+	border-radius: 50%;
+	height: 17px;
+	width: 17px;
+	margin: 14px 16px 14px 4px;
+	line-height: 14px;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 2px;
+}
+#statusAlertClose:hover {
+	cursor: pointer;
+}
+
+
+#statusAlertIcon {
+	background-image: url('images/status-success.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	float: left;
+	height: 50px;
+	width: 50px;
+	margin: 18px 16px;
+}
+
+#statusAlertIcon.error {
+	background-image: url('images/status-error.png');
+}
+
+#statusAlertIcon.warning {
+	background-image: url('images/status-warning.png');
+}
+
+#statusAlertText {
+	float: left;
+	max-width: 250px;
+	min-width: 250px;
+	margin: 16px 10px;
+	font-family: SophosSans, Arial;
+	font-weight: normal;
+}
+
+#statusAlertTitle {
+	color: #efefef;
+	font-size: 14px;
+}
+
+#statusAlertMsg {
+	margin-top: 10px;
+	color: #bcbcbc;
+	font-size: 12px;
+}
+
+#EventsPage {
+	display: none;
+	position: relative;
+	width: 100%;
+	height: calc(100% - 32px);
+}
+
+#EventsPage div#eventsHdr {
+    display: inline-flex;
+    font-size: 11px;
+    font-family: SophosSansMedium;
+    color: #83888e;
+    margin: 8px 20px 0;
+    padding-left: 12px;
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+}
+
+#EventsPage div#eventsHdr div.listIcons {
+    min-width: 24px;
+}
+
+#EventsPage div.ts {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+}
+
+#EventsPage div.logMsg {
+    margin-left: 6px;
+    padding-right: 6px;
+}
+
+#EventsPage div#eventsHdr div.logMsg {
+    width: calc(100% - 366px);
+}
+
+#EventsPage div#eventsHdrButtonDiv {
+    float: right;
+	margin-top: -2px;
+}
+
+#EventsPage div#eventsHdrButtonDiv button {
+    background-color: #1987CB;
+    color: white;
+    font-family: SophosSans;
+    font-size: 11px;
+    font-weight: bold;
+    border: none;
+    width: 140px;
+    height: 28px;
+    cursor: pointer;
+    line-height: 21px;
+}
+
+#EventsPage div#eventsHdrButtonDiv button:focus {
+    outline: 1px solid #4E85C4;
+}
+
+#EventsPage div#eventsHdrButtonDiv button:hover {
+    background-color: #0090dd;
+}
+
+ul#logarea {
+    position: relative;
+    background-color: white;
+    width: calc(100% - 60px);
+    height: calc(100% - 50px);
+    resize: none;
+    padding: 12px;
+    border: none;
+    margin: 0 20px 12px;
+    white-space: pre;
+    overflow: auto;
+}
+
+ul#logarea:focus {
+    outline: none;
+}
+
+ul#logarea li {
+    display: flex;
+    font-size: 12px;
+    font-family: SophosSansMedium;
+    height: 18px;
+    color: #83888e;
+    border-bottom: 1px solid;
+    border-color: #ececec;
+    padding-top: 6px;
+}
+
+ul#logarea li div.listIcons {
+    background-image: url('images/status-success.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 12px;
+    height: 12px;
+    width: 12px;
+    min-width: 12px;
+    max-width: 12px;
+}
+
+ul#logarea li div.listIcons.err {
+    background-image: url('images/status-error.png');
+}
+
+ul#logarea li div.listIcons.warning {
+    background-image: url('images/status-warning.png');
+}
+
+.footer {
+    position: absolute;
+    background-color: #ECECEC;
+    height: 32px;
+    width: 100%;
+    bottom: 0;
+    margin: 0;
+}
+
+.footer ul:first-of-type {
+    float: left;
+    margin-left: 20px;
+}
+
+.footer ul:last-of-type {
+    float: right;
+    margin-right: 20px;
+}
+
+.footer ul {
+    display: inline-flex;
+    list-style-type: none;
+    margin: 6px 0 0;
+    padding: 0;
+    height: 24px;
+}
+
+.footer ul > li {
+    float: left;
+    background-color: #ECECEC;
+    color: #1987CB;
+    font-family: SophosSansMedium;
+    font-size: 10px;
+    height: 24px;
+    margin: 0 6px;
+    text-decoration: none;
+}
+
+.footer ul > li a.active {
+    color: blue;
+}
+
+.footer ul > li passive {
+    color: #196CBD;
+}
+
+.footer ul > li visited {
+    color: #667589;
+}
+
+.footer ul > li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.footer ul > li:focus {
+    outline: none;
+    text-decoration: underline;
+}
+
+.detailsArea {
+    position: relative;
+    background-color: white;
+    color: #4C5E75;
+    height: calc(100% - 136px);
+    width: calc(100% - 40px);
+    margin: 16px 20px;
+}
+
+.subTitle {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+}
+
+.subTitle .subTitleContent {
+    position: relative;
+    top: 16px;
+    font-family: SophosSansMedium;
+    font-size: 14px;
+    text-align: center;
+}
+
+.subTitle img {
+    width: 16px;
+    cursor: default;
+}
+
+.subTitle img:hover {
+    cursor: pointer;
+}
+
+.subTitle img[disabled] {
+    cursor: not-allowed;
+}
+
+div.detailsArea .subTitle img:first-of-type {
+    position: absolute;
+    left: 24px;
+}
+
+div.detailsArea .subTitle img:focus {
+	position: absolute;
+	left: 24px;
+	outline: 1px solid #4E85C4;
+}
+
+.subTitle .line {
+    clear: both;
+    border: 0;
+    background-color: #aaaaaa;
+    height: 1px;
+    margin: 20px 23px 0;
+}
+
+.fieldset {
+    height: calc(100% - 40px);
+    min-height: 60px;
+    clear: both;
+    position: relative;
+    width: 100%;
+}
+
+.sophosRoundedCorner {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.selectable {
+    -moz-user-select: text;
+    -khtml-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.fieldset > select.combobox {
+    background-color: #E5E9EC;
+    border: 3px solid #E5E9EC;
+    text-align: left;
+    font-size: 16px;
+    margin: 0;
+    margin-left: calc((100% - 302px)/2);
+    cursor: pointer;
+    width: 302px;
+    max-width: 302px;
+    height: 36px;
+    padding: 6px 0 2px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fieldset > select.combobox[disabled] {
+    cursor: not-allowed;
+}
+
+.fieldset > select option {
+    max-width: 296px;
+    width: 296px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div#connectionDetails.detailsArea div.fieldset {
+    width: 100%;
+    overflow-y: auto;
+}
+
+div#connectionDetails .fieldset ul {
+    list-style-type: none;
+    width: calc(100% - 48px);
+    margin: 0 24px;
+    padding: 2px 0;
+    outline: 0;
+    height: auto;
+}
+
+div#connectionDetails .fieldset li {
+    position: relative;
+    font-family: SophosSans;
+    text-align: left;
+    margin: 0;
+    padding: 10px;
+}
+
+div#connectionDetails .fieldset li:focus {
+    outline: 1px solid #4E85C4;
+}
+
+div#connectionDetails .fieldset li div.listIcons {
+    position: relative;
+    height: 36px;
+    width: 16px;
+    max-width: 16px;
+}
+
+div#connectionDetails li div.listIcons img.favIcon {
+    height: 16px;
+    width: 16px;
+}
+
+div#connectionDetails li div.listIcons img.autoConnect {
+    height: 16px;
+    width: 16px;
+}
+
+div#connectionDetails .fieldset li div.listData {
+    position: absolute;
+    left: 32px;
+    top: 10px;
+    width: calc(100% - 68px);
+}
+
+div#connectionDetails .fieldset li div.settingsIcon {
+    display: none;
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    height: 16px;
+    width: 16px;
+}
+
+div#connectionDetails .fieldset li.selected div.settingsIcon {
+    display: block;
+}
+
+div#connectionDetails .fieldset li div.settingsIcon img {
+    width: 16px;
+}
+
+div#connectionDetails .fieldset li div.settingsIcon:hover {
+    cursor: pointer;
+}
+
+div#connectionDetails .fieldset li:hover {
+    background-color: #E4F0F6;
+}
+
+div#connectionDetails .fieldset li:hover div.settingsIcon {
+    display: block;
+}
+
+div#connectionDetails .fieldset li.disabled {
+    color: #9B9B9B;
+}
+
+div#connectionDetails .fieldset li.selected {
+    background-color: #BFD6EC;
+}
+
+div#connectionDetails .fieldset li.selected:hover {
+    cursor: default;
+}
+
+div#connectionDetails .fieldset li div.subtext {
+    left: 32px;
+    margin: 0 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 11px;
+    line-height: 13px;
+	white-space: nowrap;
+}
+
+div#connectionDetails .fieldset li div.listText {
+    margin: 0 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    line-height: 17px;
+}
+
+div#connectionDetails .fieldset li div.listText.editable {
+    padding: 9px;
+    position: relative;
+    border: 2px solid #4E85C4;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+div#connectionDetails .fieldset li div.subtext span.normal {
+    color: #3FAE29;
+}
+
+div#connectionDetails .fieldset li div.subtext span.error {
+    color: red;
+}
+
+div#connectionDetails #editDiv {
+    display: inline-flex;
+}
+
+ul.dropMenu {
+    display: none;
+    position: absolute;
+    width: 190px;
+    text-align: left;
+    background-color: #F5F6F7;
+    left: 23px;
+    padding: 0;
+    margin-top: 0;
+    top: 100%;
+    list-style: none;
+    z-index: 100;
+    border: 1px solid #4E85C4;
+}
+
+/* need to re-calculate dropMenu width and position based on language */
+ul#appMenu.dropMenu {
+    left: calc(100% - 190px);
+    border: none;
+    box-shadow: -3px 3px 12px lightgray;
+}
+
+ul#editMenu.dropMenu {
+	width: 180px;
+}
+
+ul.dropMenu.active {
+    display: block;
+}
+
+ul.dropMenu li {
+    position: relative;
+    z-index: 100;
+    padding: 2px 4px;
+    margin: 1px;
+    border-top: 1px solid #E2E5E7;
+}
+
+ul.dropMenu li:first-of-type {
+    border-top: none;
+}
+
+ul#appMenu li.appMenuItem {
+    color: #4C5E75;
+    line-height: 26px;
+    padding: 0;
+}
+
+ul#appMenu li.appMenuItem:focus {
+    outline: 1px solid #4E85C4;
+}
+
+ul#appMenu li.appMenuItem:focus {
+    outline: 1px solid #4E85C4;
+}
+
+ul#appMenu li.appMenuItem:hover {
+    background-color: #E4F0F6;
+    cursor: pointer;
+    outline: 1px solid #BFD6EC;
+}
+
+ul#appMenu li.appMenuItem:focus {
+    outline: 1px solid #4E85C4;
+}
+
+ul#appMenu li.appMenuItem.selected {
+    background-color: #BFD6EC;
+    outline: 1px solid #4E85C4;
+}
+
+ul#appMenu li.appMenuItem.selected text {
+    outline: 1px solid #4E85C4;
+}
+
+ul#appMenu li.appMenuItem .appMenuText {
+    padding: 2px 0 2px 10px;
+}
+
+ul#appMenu li.appMenuItem .appMenuText.nopad {
+    padding: 0;
+}
+
+div#connectionDetails li.editMenuItem:focus {
+    outline: 1px solid #4E85C4;
+}
+
+ul#appMenu li.appMenuItem a {
+    display: inline-block;
+    padding: 2px 0 2px 10px;
+    width: 100%;
+    text-decoration: none;
+    color: #4C5E75;
+}
+
+ul#appMenu li.appMenuItem a:visited {
+    color: #4C5E75;
+}
+
+ul#appMenu li.appMenuItem label {
+    display: inline-block;
+    padding: 2px 0 2px 10px;
+    width: 100%;
+}
+
+#connectionDetails div.transient {
+	display: none;
+	height: calc(100% - 40px);
+	overflow-y: auto;
+}
+
+div #connectionDetails li.editMenuItem:hover {
+    background-color: #E4F0F6;
+    cursor: pointer;
+    outline: 1px solid #BFD6EC;
+}
+
+div #connectionDetails li.editMenuItem.selected {
+	background-color: #BFD6EC;
+	outline: 1px solid #4E85C4;
+}
+
+div #connectionDetails li.editMenuItem.selected text {
+    background-color: #BFD6EC;
+}
+
+div#connectionDetails li.editMenuItem div.editMenuImg {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 20px;
+    min-width: 20px;
+    height: 16px;
+}
+
+div#connectionDetails li.editMenuItem#clearCredentials {
+    display: none;
+}
+
+div#connectionDetails li.editMenuItem#clearCredentials.active {
+    display: block;
+}
+
+div#connectionDetails li.editMenuItem#rename {
+    display: none;
+}
+
+div#connectionDetails li.editMenuItem#rename.active {
+    display: block;
+}
+
+div#connectionDetails li.editMenuItem#updateConnection {
+	display: none;
+}
+
+div#connectionDetails li.editMenuItem#updateConnection.active {
+	display: block;
+}
+
+div#connectionDetails li.editMenuItem#autoConnect {
+    display: block;
+}
+
+div#connectionDetails li.editMenuItem#autoConnect[disabled] {
+    cursor: not-allowed;
+    background-color: #B3C4D7;
+    color: #D8D8D8;
+    display: block;
+}
+
+div#connectionDetails li.editMenuItem div.editMenuImg.autoConnect {
+    background-image: url("images/blackCheck24.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+div#connectionDetails li.editMenuItem#updateConnection[disabled] {
+	cursor: not-allowed;
+	background-color: #B3C4D7;
+	color: #D8D8D8;
+	display: block;
+}
+
+/* need to recalculate editMenuText width based on language */
+div#connectionDetails li.editMenuItem div.editMenuText {
+    position: relative;
+	top: 2px;
+    left: 24px;
+    width: 150px;
+	height: 18px;
+}
+
+#authDetails {
+    display: none;
+}
+
+#authDetails .introSection {
+    height: 40px;
+}
+
+#authDetails .introSection > p {
+    font-family: SophosSans;
+    font-size: 12px;
+    text-align: center;
+    padding:8px 0px 0px 0px;
+    background-color: white;
+}
+
+#authDetails .fieldset {
+    font-size: 14px;
+    height: 32px;
+    min-height: 32px;
+}
+
+#authDetails .fieldset input {
+    font-family: SophosSansMedium;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    padding: 6px 8px;
+    width: 100%;
+    height: 32px;
+    background-color: #FFFFFF; 
+    border: 2px solid #DADCE0; 
+    border-radius: 5px; 
+    color: #000000; 
+    outline: none;
+    -webkit-appearance: none;
+}
+
+#authDetails .user-name-title-lable-and-input-container {
+    margin-top: 32px;
+    background-color: white;
+}
+
+#authDetails .password-title-lable-and-input-container {
+    margin-top: 24px;
+    background-color: white;
+}
+#authDetails .otp-title-lable-and-input-container {
+    margin-top: 24px;
+    background-color: white;
+}
+
+#authDetails .fieldset .title-label {
+    font-family: SophosSans;
+    font-size: 14px;
+    font-weight: 500;
+    height: 24px;
+    color: #696A6B;
+    background-color: white;
+    margin-bottom: 8px;
+}
+     
+ #authDetails .fieldset img {
+    margin: 2px 2px;
+    padding-left: 8px;
+    width: 125px;
+    height: 60px;
+} 
+ 
+#authDetails .fieldset button {
+    background-color: #1987CB;
+    color: white;
+    width: 65px;
+    height: 28px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: "SophosSans", Arial;
+}
+
+#authDetails .fieldset.credential,
+#authDetails .fieldset.credential {
+    display: none;
+}
+
+#authDetails .fieldset.credential.active,
+#authDetails .fieldset.credential.active {
+    display: inline-block;
+}
+
+#authDetails .fieldset.otp {
+    display: none;
+}
+
+#authDetails .fieldset.otp.active {
+    display: inline-block;
+}
+
+#authDetails .fieldset.checkbox input {
+    width: 14px;
+    height: 14px;
+}
+
+#authDetails .fieldset.checkbox label {
+    font-family: SophosSansMedium;
+    font-size: 12px;
+	vertical-align: middle;
+}
+
+#authDetails .buttonRow {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#authDetails .buttonRow button {
+    background-color: #005BC8; 
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    width: 90px;
+    height: 28px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: "SophosSans", Arial;
+}
+
+#authDetails .buttonRow button[disabled] {
+    background-color: #6EB4E7;
+    border-color: #6EB4E7;
+    color: #BFCEDE;
+    cursor: not-allowed;
+}
+
+#authDetails .buttonRow button:focus {
+    outline: 1px solid #4E85C4;
+}
+
+#ConnectionsPage {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#importDetails {
+    display: none;
+}
+
+#importDetails.detailsArea section#importDetailsContent {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    padding-top: 60px;
+}
+
+#importDetails.detailsArea section#importDetailsContent p {
+    width: 410px;
+    margin-left: calc((100% - 410px)/2);
+    font-family: SophosSansMedium;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+#importDetails.detailsArea section#importDetailsContent a {
+	margin: 0 3px;
+    padding: 0 2px;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#importDetails.detailsArea section#importDetailsContent a:hover {
+    cursor: pointer;
+}
+
+#importDetailsAfter {
+	margin-left: -2px;
+}
+
+#certDetails {
+    display: none;
+}
+
+#certDetails .introSection {
+    height: 64px;
+}
+
+#certDetails .introSection > p {
+    font-family: SophosSans;
+    font-size: 12px;
+    line-height: 16px;
+    width: 320px;
+    max-width: 320px;
+    margin: 8px 0 0;
+    margin-left: calc((100% - 320px)/2);
+}
+
+#certDetails .fieldset {
+    font-size: 14px;
+    height: 50px;
+    min-height: 50px;
+}
+
+#certDetails .fieldset input {
+    font-family: SophosSansMedium;
+    font-size: 12px;
+    margin: 10px 32px;
+    margin-left: calc((100% - 324px)/2);
+    padding-left: 8px;
+    width: 312px;
+    height: 30px;
+}
+
+section.certDetailsContent #divCertImport {
+	position: relative;
+	width: 204px;
+	max-width: 204px;
+	margin: 8px 0 0;
+	margin-left: calc((100% - 204px)/2);
+}
+
+section.certDetailsContent #divCertImport label {
+    display: inline-block;
+    background-color: #1987CB;
+    border: 1px solid #1987CB;
+    color: white;
+    margin-top: 14px;
+    padding-left: 12px;
+    height: 28px;
+    width: 180px;
+    line-height: 28px;
+    font-family: SophosSans;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+section.certDetailsContent #divCertImport:focus {
+    outline: none;
+}
+
+section.certDetailsContent #divCertImport label {
+    outline: none;
+}
+
+section.certDetailsContent #divCertImport label.hasFocus {
+    outline: 1px solid #4E85C4;
+}
+
+section.certDetailsContent #divCertImport.disabled label {
+    background-color: #6EB4E7;
+    border-color: #6EB4E7;
+    color: #B3C4D7;
+}
+
+section.certDetailsContent #divCertImport label img.importIcon {
+    width: 16px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+#outageDetails.detailsArea section#outageDetailsContent {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    padding-top: 60px;
+}
+
+#outageDetails.detailsArea section#outageDetailsContent p {
+    width: 410px;
+    margin-left: calc((100% - 410px)/2);
+    font-family: SophosSansMedium;
+	font-style: italic;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+#retryDetails.detailsArea section#retryDetailsContent {
+	display: block;
+	margin-top: 20px;
+	text-align: center;
+	padding-top: 40px;
+}
+
+#retryDetails.detailsArea section#retryDetailsContent p {
+	width: 410px;
+	margin-left: calc((100% - 410px)/2);
+	font-family: SophosSansMedium;
+	font-style: italic;
+	font-size: 13px;
+	line-height: 20px;
+}
+
+input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#fileImport {
+    display: block;
+    font-family: SophosSansMedium;
+    font-size: 12px;
+    margin-top: 32px;
+    text-align: center;
+}
+
+#monitorDetails {
+    display: none;
+}
+
+#monitorDetails img {
+    cursor: pointer;
+}
+
+#monitorDetails img:first-of-type {
+    position: absolute;
+    left: 24px;
+}
+
+#monitorDetails img:nth-of-type(2) {
+    position: absolute;
+    left: 48px;
+}
+
+#monitorDetails img:nth-of-type(3) {
+    position: absolute;
+    left: 72px;
+}
+
+#monitorDetails img:focus {
+    outline: 1px solid #4E85C4;
+}
+
+#monitorDetails .subTitle img[disabled] {
+    cursor: not-allowed;
+}
+
+#monitorDetails div.monitors {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+#monitorDetails div.transient {
+    display: none;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+
+section.transient {
+	display: block;
+	margin-top: 20px;
+	text-align: center;
+}
+
+section.transient button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: SophosSansMedium;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+}
+section.transient p {
+    color: #99A3B1;
+    width: 410px;
+    margin-left: calc((100% - 410px)/2);
+    font-family: SophosSansMedium;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 20px;
+}
+
+div.mConnection ul {
+    position: relative;
+    font-family: SophosSansMedium;
+    font-size: 12px;
+    list-style: none;
+    margin-left: 24px;
+    width: calc(100% - 48px);
+    padding: 0;
+}
+
+div.mConnection ul li text.sectionLabel {
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+div.mConnection li div {
+    display: inline-flex;
+    background-color: white;
+    margin: 0 20px 0 0;
+    height: 24px;
+    line-height: 24px;
+    width: 236px;
+}
+
+div.mConnection li div text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.mConnection li div:nth-of-type(2) {
+    position: absolute;
+    /* align with left edge of subTitleText (indented 4px); */
+    left: 256px;
+    /* set to max available width at narrowest allowed resize */
+    width: calc(100% - 256px);
+    margin-right: 0;
+}
+
+div.mConnection li div text:last-of-type {
+	white-space: nowrap;
+}
+
+#AboutPage {
+    display: none;
+    color: #99A3B1;
+    background-color: white;
+    height: calc(100% - 14px);
+    width: 100%;
+    font-family: SophosSansMedium;
+}
+
+#AboutPage.active {
+    display: block;
+}
+
+#AboutPage h2 {
+    margin-left: 36px;
+    font-size: 18px;
+}
+
+#AboutPage ul {
+    margin: 12px 36px;
+    line-height: 18px;
+}
+
+#AboutPage ul.legal {
+    margin: 20px 36px 30px;
+}
+
+#AboutPage ul li {
+    font-size: 13px;
+}
+
+#AboutPage ul li div:first-of-type {
+    width: 180px;
+    margin-right: 20px;
+}
+
+#AboutPage ul#versions li {
+    display: inline-flex;
+}
+
+#AboutPage ul#versions li div:first-of-type {
+    color: #0090dd;
+}
+
+#AboutPage ul li div:nth-of-type(2) {
+    float: left;
+    width: 280px;
+}
+
+#AboutPage ul li#legal a {
+    font-size: 13px;
+    color: #0090dd;
+    text-decoration: none;
+}
+
+#AboutPage ul > li#legal a.active {
+    color: blue;
+}
+
+#AboutPage ul > li#legal a:visited {
+    text-decoration: none;
+}
+
+#AboutPage ul > li#legal a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#AboutPage ul > li#legal a:focus {
+    outline: none;
+    text-decoration: underline;
+}
+
+#AboutPage h2:nth-of-type(2) {
+    margin: 30px 36px 0;
+}
+
+#AboutPage #diagnosticBtn {
+    margin: 12px 36px;
+    color: white;
+    background-color: #0090dd;
+    width: 120px;
+    height: 26px;
+    border: none;
+    font-size: 12px;
+    font-family: SophosSans;
+}
+
+#AboutPage div#troubleshooting {
+    margin: 24px 36px;
+}
+
+#AboutPage div#troubleshooting a {
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #0090dd;
+    text-decoration: none;
+}
+
+#AboutPage div#troubleshooting a.button {
+    background-color: #005BC8;
+    color: white;
+    width: 150px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: "SophosSans", Arial;
+    outline: none;
+     border-radius: 5px; 
+    border: none;
+    cursor: pointer;
+    margin-top: 16px;}
+
+#AboutPage div#troubleshooting a:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#AboutPage div#troubleshooting a:focus {
+    cursor: pointer;
+    text-decoration: none;
+    outline: 1px solid #4E85C4;}
+
+#AboutPage div#troubleshooting a[disabled] {
+    background-color: #6EB4E7;
+    border-color: #6EB4E7;
+    color: #B3C4D7;
+    cursor: not-allowed;
+}
+
+#AboutPage div#community {
+    margin: 36px 36px 18px;
+}
+
+#AboutPage div#community a {
+    padding: 4px 0;
+    font-size: 12px;
+    color: #0090dd;
+    text-decoration: none;
+}
+
+#AboutPage div#community a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#AboutPage div#community a:focus {
+    cursor: pointer;
+    text-decoration: underline;
+    outline: none;
+}
+
+#AboutPage div#credits {
+	margin: 0 36px;
+}
+
+#AboutPage div#credits a {
+	padding: 4px 0;
+	font-size: 12px;
+	color: #0090dd;
+	text-decoration: none;
+}
+
+#AboutPage div#credits a:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#AboutPage div#credits a:focus {
+	cursor: pointer;
+	text-decoration: underline;
+	outline: none;
+}
+
+#IframePage {
+    display: none;
+    background-color: white;
+    height: calc(100% - 14px);
+    width: 100%;
+    font-family: SophosSansMedium;
+}
+
+/* Top  container Styles*/
+.sign-in-options-container {
+    background-color: white;
+    height: 400px;
+}
+
+.sign-in-options-container div.sign-in-via-user-and-pass-container, div.sign-in-via-sso-container {
+   width:38%;
+   height:100%;
+   background-color: white;
+}
+
+.sign-in-options-container div.sign-in-via-user-and-pass-container, div.sign-in-options-separator-container, div.sign-in-via-sso-container {
+    float: left;
+}
+
+.sign-in-options-container div.sign-in-via-user-and-pass-container {
+    margin-left: 6%;
+}
+
+.sign-in-options-container div.sign-in-via-sso-container {
+    margin-right: 6%;
+}
+
+/* Sophos Common Button Styles */
+.scc-button {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    background-color: #005BC8; 
+    border-radius: 5px; 
+    border: none;
+    cursor: pointer;
+    font-family: SophosSansMedium; 
+    font-size: 14px; 
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.scc-input {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 6px 8px;
+    gap: 8px;
+    isolation: isolate;
+    height: 32px;
+    background-color: #FFFFFF; 
+    border: 2px solid #DADCE0; 
+    border-radius: 5px; 
+    font-size: 14px;
+    color: #000000; 
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+/* Top  container Styles End*/
+
+/* Sign in options-separator Styles*/
+.sign-in-options-separator-container {
+    width: 12%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.sign-in-options-separator-container div.sign-in-options-separator-line {
+    width: 1px;
+    height: 100%;
+    background-color: #DADCE0;
+    position: relative;
+}
+
+.sign-in-options-separator-container label.sign-in-options-separator-OR-title-lable {
+    font-family:SophosSansMedium;
+    position: absolute;
+    top: 30%;
+    transform: translate(-50%, -50%); 
+    background-color: white;
+    color: #777A7D;
+    font-size: 20px;
+    font-weight: 500;
+
+}
+/* Sign in options-separator Styles End*/
+
+
+/* User name and password Sign-in options styles */
+.user-name-and-pass-title-label-container label.user-name-and-pass-sign-in-title-label {
+    color: #777A7D;
+    font-weight: 500;
+    font-size: 12px;
+}
+.sign-in-via-user-and-pass-container button.sign-in-via-user-name-and-pass-button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.sign-in-via-user-and-pass-container div.sign-in-via-user-name-and-pass-button-container {
+    margin-top: 16px;
+}
+
+.sign-in-via-user-and-pass-container div.captcha-container {
+    margin-top: 8px;
+    height: 45px;
+}
+
+.captcha-container img.captcha-img {
+    margin-left: 12px;
+}
+
+.captcha-container button.refresh-captcha-button {
+    width: 164px;
+    background-color: #005BC8;
+}
+
+.captcha-container img.captcha-img,
+.captcha-container button.refresh-captcha-button {
+    display: inline-block;
+    vertical-align: middle;
+}
+/* User name and password Sign in options styles End*/
+
+/*SSO Sign in options styles*/
+.sign-in-via-sso-container label.sign-in-via-sso-title-lable {
+    color: #777A7D;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.sign-in-via-sso-container div.sign-in-via-sso-empty-space {
+    width: 100%;
+    height: 85px;
+    background-color: white;
+}
+
+.sso-button-and-tooltip-container {
+    position: relative;
+    display: flex;
+}
+
+.sso-button-and-tooltip-container .sso-button-tooltip-text {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+    font-size: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 125%; /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/*Will show tooltip when button in disable state*/
+.sso-button-and-tooltip-container:hover button.sso-button[disabled] + .sso-button-tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*Will not show tooltip when button in enable state*/
+.sso-button-and-tooltip-container:hover button.sso-button:not([disabled]) + .sso-button-tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.sign-in-via-sso-container button.sso-button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.sign-in-via-sso-container div.vpn-portal-port-container {
+    margin-top: 16px;
+}
+
+.vpn-portal-port-container button.vpn-portal-port-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 4px;
+    width: 163px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.vpn-portal-port-button img.vpn-portal-port-img {
+    width: 12px;
+    height: 12px;
+}
+
+.vpn-portal-port-button span.vpn-portal-port-button-label {
+    font-family: SophosSans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #696A6B;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin-left: 4px;
+}
+
+.vpn-portal-port-container div.vpn-portal-port-input-container {
+    margin-left: 18px;
+    margin-top: 8px;
+}
+
+.vpn-portal-port-input-container input.vpn-portal-port-input {
+    width: 75px;
+}
+
+.vpn-portal-port-input-container div.vpn-portal-port-change-warning-container {
+    margin-top: 4px;
+}
+
+.vpn-portal-port-change-warning-container img,
+.vpn-portal-port-change-warning-container label {
+    display: inline-block; 
+    vertical-align: middle; 
+}
+
+.vpn-portal-port-input-container img.vpn-portal-port-warning-icon {
+    width: 12px;
+    height: 12px;
+}
+
+.vpn-portal-port-input-container label.vpn-portal-port-warning-label {
+    font-family: SophosSans;
+    font-weight: 600;
+    font-size: 12px; 
+    color: #EC6500;
+}
+
+/* SSO Sign in options styles End*/
